@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button, Grid } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import axiosInstance from "../../actions/axiosApi";
+import axiosAPI from "../../actions/axiosApi";
 
 export const Form = () => {
   const classes = useStyles();
@@ -18,7 +18,7 @@ export const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance
+    axiosAPI
       .post("/urls/", {
         url: urlValue
       })

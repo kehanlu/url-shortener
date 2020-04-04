@@ -5,9 +5,8 @@ import store from "../store";
 import { PrivateRoute } from "../common/PrivateRouter";
 import Container from "@material-ui/core/Container";
 
-import { useSelector, useDispatch } from "react-redux";
-
 import { Home } from "./layout/Home";
+import { Header } from "./layout/Header";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SocialLogin } from "./SocialLogin";
@@ -22,6 +21,7 @@ function App() {
   return (
     <Provider store={store}>
       <Container>
+        <Header />
         <Router>
           <Switch>
             <PrivateRoute exact path="/" component={Home} />

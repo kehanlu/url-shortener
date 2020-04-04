@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../actions/axiosApi";
-import { Redirect } from "react-router-dom";
+import axiosAPI from "../../actions/axiosApi";
 
 export const UrlRedirect = (props) => {
   const [status, setStatus] = useState("");
@@ -8,7 +7,7 @@ export const UrlRedirect = (props) => {
 
   const renderRedirect = (short_code) => {
     console.log("short code:", short_code);
-    axiosInstance
+    axiosAPI
       .get(`/urls/${short_code}`)
       .then((res) => {
         window.location.href = res.data.url;

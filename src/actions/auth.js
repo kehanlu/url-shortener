@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosApi";
+import axiosAPI from "./axiosApi";
 import jwt_decode from "jwt-decode";
 export const checkRefreshToken = () => {
   return (dispatch) => {
@@ -23,7 +23,7 @@ export const obtainToken = (id_token) => {
     dispatch({
       type: "AUTH@LOADING"
     });
-    axiosInstance
+    axiosAPI
       .post("/accounts/token/obtain/", {
         token: id_token
       })
