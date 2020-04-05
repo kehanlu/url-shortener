@@ -19,7 +19,7 @@ export const UrlRedirect = (props) => {
 
   useEffect(() => {
     renderRedirect(short_code);
-  }, []);
+  });
 
   return <>{status === "404" ? <p>404 not found</p> : <p>Redirect...</p>}</>;
 };
