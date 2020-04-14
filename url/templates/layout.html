@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Url shortener | hanklu.tw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="container has-text-centered">
+        <a href="/">
+          <img
+            style="height: 30px;"
+            src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/red-apple_1f34e.png"
+            alt="apple"
+          />
+          <img
+            style="height: 30px;"
+            src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/pie_1f967.png"
+            alt="pie"
+          />
+        </a>
+        <!-- Place this tag where you want the button to render. -->
+        <a
+          class="github-button"
+          href="https://github.com/kehanlu"
+          data-size="large"
+          aria-label="Follow @kehanlu on GitHub"
+          >Follow</a
+        >
+      </div>
+    </nav>
+
+    {% block content%}{% endblock %}
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

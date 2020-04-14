@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block content %}
+<!--  -->
+
+<!-- 未登入 -->
+{% if not request.user.is_authenticated %}
+<div class="section">
+  <div class="container has-text-centered">
+    <a href="/accounts/google/login">
+      <img style="height: 50px;" src="{% static 'img/google-btn.png'%}" alt="" />
+    </a>
+  </div>
+</div>
+
+{% else %}
+<!-- 已登入 -->
+<div id="app">
+  <section class="section">
+    <div class="container">
+      <form class="form" v-on:submit.prevent="handleSubmit">
+        <input id="url-input" class="input" type="text" v-model="inputUrl" />
+        <button class="button is-link" style="margin: 20px 0;">Submit</button>
+      </form>
+    </div>
+  </section>
+  <section class="section">
+    <div class="table-container">
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Short URL</th>
+            <th>URL</th>
+            <th>id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="url in urls">
+            <td>
+              <button class="button" v-on:click.stop.prevent="onCopy(url.short_code)">COPY</button>
+            </td>
+            <td>[[baseUrl]]/[[url.short_code]]</td>
+            <td>[[url.url]]</td>
+            <td>[[url.id]]</td>
+          </tr>
+        </tbody>
+      </table>
+      <input id="copy-text" type="hidden" />
+    </div>
+  </section>
+</div>
+<script>
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+  var app = new Vue({
+    el: "#app",
+    delimiters: ["[[", "]]"],
+    data: {
+      baseUrl: "https://to.hanklu.tw",
+      urls: [],
+      inputUrl: "",
+    },
+    mounted() {
+      axios.get("api/").then((response) => (this.urls = response.data));
+      document.getElementById("url-input").focus();
+    },
+    methods: {
+      handleSubmit: function (e) {
+        axios
+          .post("api/", {
+            url: this.inputUrl,
+          })
+          .then((res) => {
+            this.urls = [res.data, ...this.urls];
+          })
+          .catch((err) => {
+            if (err.response.status == 406) {
+              alert("Error: " + err.response.data.msg);
+            }
+          });
+      },
+      onCopy: function (short_code) {
+        var c = document.getElementById("copy-text");
+        c.value = `${this.baseUrl}/${short_code}`;
+        c.setAttribute("type", "text");
+        c.select();
+        document.execCommand("copy");
+        c.setAttribute("type", "hidden");
+      },
+    },
+  });
+</script>
+<!--  -->
+{% endif %} {% endblock %}
