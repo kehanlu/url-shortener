@@ -21,8 +21,20 @@
   <section class="section">
     <div class="container">
       <form class="form" v-on:submit.prevent="handleSubmit">
-        <input id="url-input" class="input" type="text" v-model="inputUrl" />
-        <button class="button is-link" style="margin: 20px 0;">Submit</button>
+        <div class="control">
+          <input id="url-input" class="input" type="text" v-model="inputUrl" v-on:click.prevent="onInputClick" />
+        </div>
+
+        <p style="margin: 20px 0;" class="buttons">
+          <button class="button is-link is-light">
+            Submit
+          </button>
+          <button class="button is-light" v-on:click.prevent="onClear">
+            <span class="icon">
+              <i class="fas fa-times-circle"></i>
+            </span>
+          </button>
+        </p>
       </form>
     </div>
   </section>
@@ -40,7 +52,7 @@
         <tbody>
           <tr v-for="url in urls">
             <td>
-              <button class="button" v-on:click.stop.prevent="onCopy(url.short_code)">COPY</button>
+              <button class="button is-small is-outlined" v-on:click.stop.prevent="onCopy(url.short_code)">COPY</button>
             </td>
             <td>[[baseUrl]]/[[url.short_code]]</td>
             <td>[[url.url]]</td>
@@ -81,6 +93,12 @@
               alert("Error: " + err.response.data.msg);
             }
           });
+      },
+      onInputClick: function (e) {
+        e.target.select();
+      },
+      onClear: function (e) {
+        this.inputUrl = "";
       },
       onCopy: function (short_code) {
         var c = document.getElementById("copy-text");
