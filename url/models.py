@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class URL(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=512)
     short_code = models.CharField(max_length=20, blank=True)
     create_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
