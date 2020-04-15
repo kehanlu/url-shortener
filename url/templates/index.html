@@ -83,7 +83,7 @@
       handleSubmit: function (e) {
         axios
           .post("api/", {
-            url: this.inputUrl,
+            url: this.inputUrl.trim(),
           })
           .then((res) => {
             this.urls = [res.data, ...this.urls];

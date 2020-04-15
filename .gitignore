@@ -6,6 +6,8 @@
 .vscode
 static_root/
 
+settings.py
+
 ### Django ###
 *.log
 *.pot
