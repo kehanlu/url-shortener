@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class URL(models.Model):
     url = models.CharField(max_length=512)
+    title = models.CharField(max_length=200, blank=True)
     short_code = models.CharField(max_length=20, blank=True)
     create_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(

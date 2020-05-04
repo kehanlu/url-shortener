@@ -45,6 +45,7 @@
           <tr>
             <th></th>
             <th>Short URL</th>
+            <th>Title</th>
             <th>URL</th>
             <th>id</th>
           </tr>
@@ -55,7 +56,8 @@
               <button class="button is-small is-outlined" v-on:click.stop.prevent="onCopy(url.short_code)">COPY</button>
             </td>
             <td>[[baseUrl]]/[[url.short_code]]</td>
-            <td>[[url.url]]</td>
+            <td>[[url.title]]</td>
+            <td>[[decodeURI(url.url)]]</td>
             <td>[[url.id]]</td>
           </tr>
         </tbody>

@@ -3,6 +3,8 @@ import hashlib
 from django.conf import settings
 from rest_framework import serializers
 from url.models import URL, Visitor
+import requests
+from bs4 import BeautifulSoup
 
 
 def shorten_url(id):
@@ -13,14 +15,17 @@ def shorten_url(id):
 class URLSerializer(serializers.ModelSerializer):
     class Meta:
         model = URL
-        fields = ['id', 'url', 'short_code', 'create_on']
+        fields = ['id', 'url', 'short_code', 'create_on', 'title']
         lookup_field = 'short_code'
 
     def create(self, validate_data):
         url = validate_data.get('url')
         user = validate_data.get('user')
+        title = BeautifulSoup(requests.get(url).text,
+                              "html.parser").find("title").text
+
         if url:
-            u = URL.objects.create(url=url, user=user)
+            u = URL.objects.create(url=url, title=title, user=user)
 
             code_length = 4
             while URL.objects.filter(short_code=shorten_url(u.id)[:code_length]).exists():
